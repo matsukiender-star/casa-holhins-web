@@ -126,11 +126,3 @@ La Directora pidió también **ver los servicios que ha tomado cada cliente** de
 La suite pasó de **9 a 14 pruebas**. La adición relevante es `MigracionTest`, que **degrada la base a propósito** para dejarla en el estado en que estaba la de producción, y verifica que la migración la repara.
 
 Esto cubre un punto ciego real de la suite anterior: todas las pruebas corrían contra una base H2 en memoria que nace limpia en cada ejecución — es decir, el único escenario en el que B1 y B2 no pueden reproducirse. Una suite en verde daba una confianza que no correspondía al estado real del sistema desplegado.
-
----
-
-## Recomendación para la entrega
-
-**No hay bloqueos.** Los dos bugs bloqueantes están corregidos y verificados end-to-end contra la base de producción; el problema de fondo que los ocultaba también. B4 queda documentado como limitación conocida, con mitigación efectiva, y se difiere a Fase IV.
-
-El CI está en verde con las 14 pruebas.
