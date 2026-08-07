@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Casa Holhins Web System - configuracion de Maven
+
+    Dependencias clave y por que estan:
+      jakarta.jakartaee-web-api  API de Servlets y JSP. Va en scope 'provided'
+                                 porque Tomcat 10 ya la trae; si la empaquetaramos
+                                 en el WAR chocaria con la del servidor.
+      jakarta.servlet.jsp.jstl   JSTL 3.0, las etiquetas <c:forEach> y <fmt:> de
+                                 las vistas. Esta si viaja dentro del WAR.
+      h2                         Base de datos embebida. Sin servidor aparte: se
+                                 guarda en ./data/holhins y en memoria para tests.
+      bcrypt (at.favre.lib)      Hasheo de contrasenas. Ligera y sin dependencias,
+                                 a diferencia de arrastrar Spring Security entero.
+      junit-jupiter              Pruebas unitarias con JUnit 5.
+
+    Nota: es JSTL 3.0 y no 1.2 justamente porque el proyecto va con Jakarta EE 10.
+    Las versiones viejas usan el namespace javax y no funcionan en Tomcat 10.
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">

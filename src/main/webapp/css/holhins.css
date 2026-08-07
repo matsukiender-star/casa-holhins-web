@@ -1,3 +1,17 @@
+/* ===========================================================================
+   Casa Holhins - hoja de estilos propia
+   Se carga despues de Bootstrap para poder sobrescribir lo que haga falta.
+
+   Paleta oficial, tomada del logo de la marca:
+     Verde salvia oscuro  #4A6363  navbar, botones primarios, titulos
+     Verde eucalipto      #7D9A9A  subtitulos, badges secundarios, hovers
+     Verde sage claro     #B5C5BE  fondos suaves, cabeceras de tabla
+     Crema natural        #F5F1E8  fondo general y texto sobre verde oscuro
+
+   Tipografias: Cambria para titulos (con Georgia de respaldo) y Calibri para
+   el cuerpo. Ambas vienen del sistema, no se descargan de ningun CDN.
+   =========================================================================== */
+
 :root {
     --holhins-dark-sage: #4A6363;
     --holhins-eucalyptus: #7D9A9A;
@@ -11,7 +25,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, .navbar-brand {
-    font-family: 'Cambria', serif;
+    font-family: 'Cambria', Georgia, serif;
     color: var(--holhins-dark-sage);
 }
 
@@ -22,6 +36,28 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 .navbar-brand, .nav-link, .navbar-text {
     color: var(--holhins-natural-cream) !important;
 }
+
+/* --- Logo -----------------------------------------------------------------
+   Dos tamanos y dos versiones del mismo SVG. El archivo original es blanco,
+   asi que en el navbar (verde oscuro) se usa tal cual, y en el login (fondo
+   crema) se usa la copia recoloreada a verde salvia, si no seria invisible.  */
+
+.navbar-logo {
+    height: 40px;
+    width: auto;
+}
+
+.navbar-tagline {
+    font-size: 0.6rem;
+    color: var(--holhins-natural-cream);
+}
+
+.login-logo {
+    height: 80px;
+    width: auto;
+}
+
+/* --- Componentes ---------------------------------------------------------- */
 
 .btn-primary {
     background-color: var(--holhins-dark-sage);
@@ -49,7 +85,55 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     font-weight: bold;
 }
 
+/* Las tarjetas de metricas del dashboard van en verde oscuro, asi que ahi la
+   cabecera clara no aplica y el texto tiene que ir en crema. */
+.card.bg-secondary .card-header {
+    background-color: transparent;
+    color: var(--holhins-natural-cream);
+}
+
 .table th {
     background-color: var(--holhins-light-sage);
     color: var(--holhins-dark-sage);
+}
+
+/* Hover de fila en sage claro, para que al recorrer una tabla larga se vea
+   bien cual renglon estas leyendo. */
+.table-hover > tbody > tr:hover > * {
+    background-color: var(--holhins-light-sage);
+}
+
+/* Columnas de identificador y de botones centradas, para que el encabezado
+   quede alineado con el contenido de la celda y no bailen entre si. */
+.col-centrada {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* --- Metricas del dashboard ----------------------------------------------- */
+
+.metrica {
+    text-align: center;
+}
+
+.metrica .metrica-valor {
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.1;
+    margin-bottom: 0;
+}
+
+.metrica .metrica-etiqueta {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+/* --- Pie de pagina --------------------------------------------------------- */
+
+.holhins-footer {
+    border-top: 1px solid var(--holhins-light-sage);
+    color: var(--holhins-eucalyptus);
+    font-size: 0.85rem;
 }

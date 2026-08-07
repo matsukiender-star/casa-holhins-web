@@ -3,9 +3,13 @@
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <jsp:include page="/includes/header.jsp" />
 
-<div class="row mb-3">
+<%--
+    Catalogo en tarjetas, con filtro por tipo arriba a la derecha. El filtro va
+    por GET (solo consulta); desactivar va por POST con token, porque escribe.
+--%>
+<div class="row mb-3 align-items-center">
     <div class="col-md-6">
-        <h2>Catálogo de Servicios</h2>
+        <h2 class="mb-0">Catálogo de Servicios</h2>
     </div>
     <div class="col-md-6 text-end">
         <form class="d-inline" action="${pageContext.request.contextPath}/servicios" method="get">
@@ -39,6 +43,7 @@
                 <div class="card-footer bg-transparent d-flex justify-content-between">
                     <a href="${pageContext.request.contextPath}/servicios?id=${s.id}&editar=true" class="btn btn-sm btn-outline-primary">Editar</a>
                     <form action="${pageContext.request.contextPath}/servicios" method="post" class="d-inline" onsubmit="return confirm('¿Seguro que deseas desactivar este servicio?');">
+                        <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
                         <input type="hidden" name="id" value="${s.id}">
                         <input type="hidden" name="desactivar" value="true">
                         <button type="submit" class="btn btn-sm btn-outline-danger">Desactivar</button>

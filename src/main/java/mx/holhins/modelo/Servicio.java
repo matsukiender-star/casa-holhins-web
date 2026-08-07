@@ -3,6 +3,16 @@ package mx.holhins.modelo;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+/**
+ * Servicio del catalogo: terapia, curso, diplomado o taller.
+ *
+ * POJO sin logica, igual que Cliente.
+ *
+ * Dos detalles a proposito: el precio va en BigDecimal y no en double, porque
+ * con dinero el punto flotante pierde centavos al redondear en binario; y
+ * duracionMinutos es Integer y no int, para poder distinguir "sin duracion
+ * definida" (null) de "duracion cero".
+ */
 public class Servicio {
     private Integer id;
     private String nombre;

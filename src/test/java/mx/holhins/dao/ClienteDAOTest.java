@@ -42,4 +42,26 @@ public class ClienteDAOTest {
         Cliente actualizado = dao.buscarPorId(ultimo.getId());
         assertEquals("ACTIVO", actualizado.getEstatus());
     }
+
+    @Test
+    public void bajaLogica_marcaClienteComoInactivo_yYaNoApareceEnListado() {
+        ClienteDAO dao = new ClienteDAO();
+        Cliente c = new Cliente();
+        c.setNombreCompleto("Cliente Test Baja");
+        c.setTelefono("5551234567");
+        c.setCorreo("test@baja.mx");
+        c.setEstatus("ACTIVO");
+        
+        int cantidadAntes = dao.contarActivos();
+        dao.insertar(c);
+        
+        Cliente insertado = dao.listarPaginado(0, 1).get(0);
+        
+        dao.bajaLogica(insertado.getId());
+        
+        Cliente actualizado = dao.buscarPorId(insertado.getId());
+        assertNotNull(actualizado, "El cliente sigue existiendo en BD");
+        assertEquals("INACTIVO", actualizado.getEstatus(), "El estatus debe ser INACTIVO tras la baja");
+        assertEquals(cantidadAntes, dao.contarActivos(), "Debe haber la misma cantidad que antes de insertar");
+    }
 }
