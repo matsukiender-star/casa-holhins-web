@@ -3,6 +3,19 @@ package mx.holhins.modelo;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+/**
+ * Cliente de Casa Holhins.
+ *
+ * Es un POJO puro: puros campos con sus getters y setters, sin logica ni SQL.
+ * Su unico trabajo es cargar los datos entre el DAO y la vista (lo que en otros
+ * lenguajes se llamaria un dataclass).
+ *
+ * Las fechas usan java.sql.Date y Timestamp en lugar de LocalDate porque asi
+ * salen y entran directo del ResultSet sin conversiones de por medio.
+ *
+ * El estatus puede ser NUEVO, ACTIVO, LAPSADO o INACTIVO. Este ultimo marca a
+ * los clientes dados de baja, que se conservan pero no se listan.
+ */
 public class Cliente {
     private Integer id;
     private String nombreCompleto;

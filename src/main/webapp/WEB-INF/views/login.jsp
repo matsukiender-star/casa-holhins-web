@@ -2,12 +2,21 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <jsp:include page="/includes/header.jsp" />
 
+<%--
+    Pantalla de acceso. Es la unica vista publica del sistema: AuthFilter deja
+    pasar /login y los estaticos, todo lo demas exige sesion.
+
+    Aqui el logo va en su version oscura porque el fondo es crema; la version
+    blanca del navbar seria invisible sobre este fondo.
+--%>
 <div class="row justify-content-center mt-5">
     <div class="col-md-5">
         <div class="card shadow-sm">
-            <div class="card-header text-center">
-                <h4>Iniciar Sesión</h4>
-                <small class="text-muted">Acceso exclusivo al sistema CRM</small>
+            <div class="card-header text-center py-4">
+                <img src="${pageContext.request.contextPath}/img/logo-holhins-dark.svg"
+                     alt="Logo de Casa Holhins" class="login-logo mb-3">
+                <h4 class="mb-1">Iniciar Sesión</h4>
+                <small class="text-muted d-block">Acceso exclusivo al sistema CRM</small>
             </div>
             <div class="card-body p-4">
                 <c:if test="${not empty error}">
@@ -16,6 +25,9 @@
                     </div>
                 </c:if>
                 <form action="${pageContext.request.contextPath}/login" method="post">
+                    <%-- Token CSRF: sin el, LoginServlet rechaza el POST con un 403. --%>
+                    <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
+
                     <div class="mb-3">
                         <label for="username" class="form-label">Usuario</label>
                         <div class="input-group">
