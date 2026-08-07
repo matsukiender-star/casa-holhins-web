@@ -5,6 +5,23 @@
 Sistema web CRM integral desarrollado para Casa Holhins, empresa de bienestar holístico en Tizayuca, Hidalgo. 
 Este MVP permite administrar clientes y un catálogo de servicios (terapias, cursos, diplomados) de manera centralizada.
 
+## Tabla de Contenidos
+
+- [Sobre Casa Holhins](#sobre-casa-holhins)
+- [Arquitectura del Proyecto](#arquitectura-del-proyecto)
+- [Requerimientos Técnicos](#requerimientos-técnicos)
+- [Instalación](#instalación)
+- [Configuración](#configuración)
+- [Ejecución (Deploy)](#ejecución-deploy)
+- [Manual de Uso](#manual-de-uso)
+  - [Manual para Administrador](#manual-para-administrador)
+  - [Manual para Usuario Final (Staff)](#manual-para-usuario-final-staff)
+- [Gestión del Proyecto](#gestión-del-proyecto)
+- [Roadmap](#roadmap)
+- [Enlaces Útiles](#enlaces-útiles)
+- [Guía de Contribución](#guía-de-contribución)
+- [Licencia](#licencia)
+
 ## Sobre Casa Holhins
 
 Casa Holhins es una empresa de bienestar holístico ubicada en Tizayuca, Hidalgo, dirigida por Ana María Trejo Holhins. Ofrece servicios de terapia energética, masaje, sonoterapia y formación certificada en técnicas holísticas.
@@ -19,24 +36,13 @@ Este sistema fue desarrollado como Evidencia Integradora del Certificado en Java
 
 El sistema sigue un patrón Modelo-Vista-Controlador (MVC) apoyado por Servlets y JSP bajo Jakarta EE 10. La capa de datos utiliza JDBC contra una base de datos embebida H2.
 
-## Screenshots
-
-### Login
-[ Espacio para Screenshot Login ]
-
-### Dashboard Principal
-[ Espacio para Screenshot Dashboard ]
-
-### Catálogo de Servicios
-[ Espacio para Screenshot Servicios ]
-
 ## Requerimientos Técnicos
 
 - **Java JDK 11**
 - **Apache Tomcat 10.1+**
 - **Maven 3.9+**
 
-## Instalación y Configuración
+## Instalación
 
 1. Clonar este repositorio:
    ```bash
@@ -51,6 +57,41 @@ El sistema sigue un patrón Modelo-Vista-Controlador (MVC) apoyado por Servlets 
 
 3. El archivo WAR se generará en `target/casa-holhins-web.war`.
 
+## Configuración
+
+El sistema no necesita configuración manual para arrancar: la base de datos se crea y se siembra sola la primera vez.
+
+### Base de datos
+
+Se usa **H2 embebida en archivo**, sin servidor aparte. La URL de conexión está en `ConexionDB.java`:
+
+```
+jdbc:h2:./data/holhins
+```
+
+**Importante:** esa ruta es *relativa al directorio de trabajo del proceso de Tomcat*, no al del proyecto. Si arrancas Tomcat desde `bin/`, la base vive en `<tomcat>/bin/data/holhins.mv.db`. Si lo arrancas desde otro sitio, se creará una base distinta y vacía — si alguna vez parece que "se perdieron los datos", casi siempre es esto.
+
+Al primer arranque, `ConexionDB` ejecuta:
+
+1. `schema.sql` — crea las tres tablas (`usuarios`, `clientes`, `servicios`) si no existen.
+2. `data.sql` — siembra 12 servicios reales y 2 usuarios, **solo si la base está vacía**, para no pisar los cambios que haga el usuario.
+3. `migrar()` — pone al día bases creadas con versiones anteriores del esquema.
+
+> **Por qué existe el paso 3:** `schema.sql` usa `CREATE TABLE IF NOT EXISTS`, y cuando la tabla ya existe H2 se salta la instrucción completa. Eso significa que una corrección al esquema nunca alcanza a una base creada antes. `migrar()` sí inspecciona el estado real de la base y lo corrige; es idempotente y corre en cada arranque.
+
+### Credenciales de demostración
+
+| Usuario | Contraseña | Rol |
+|---------|-----------|-----|
+| `admin` | `admin123` | ADMIN |
+| `staff` | `staff123` | STAFF |
+
+> Son credenciales **de demostración**, definidas en `data.sql` para que el sistema se pueda evaluar sin configuración previa. Antes de cualquier uso en producción deben cambiarse.
+
+### Contexto de despliegue
+
+`src/main/webapp/META-INF/context.xml` define el contexto de la aplicación en Tomcat. No requiere edición para el despliegue estándar descrito abajo.
+
 ## Ejecución (Deploy)
 
 1. Copiar el archivo WAR al directorio `webapps` de Tomcat:
@@ -58,13 +99,16 @@ El sistema sigue un patrón Modelo-Vista-Controlador (MVC) apoyado por Servlets 
    cp target/casa-holhins-web.war ~/dev-tools/apache-tomcat-10.1.55/webapps/
    ```
 
-2. Arrancar Tomcat:
+2. Arrancar Tomcat **desde su directorio `bin`** (ver la nota sobre la ruta de la base en [Configuración](#configuración)):
    ```bash
-   ~/dev-tools/apache-tomcat-10.1.55/bin/startup.sh
+   cd ~/dev-tools/apache-tomcat-10.1.55/bin
+   ./startup.sh
    ```
 
 3. Abrir el navegador en:
    `http://localhost:8080/casa-holhins-web/`
+
+> Las rutas de estos ejemplos corresponden a un entorno de desarrollo concreto. Sustituye `~/dev-tools/apache-tomcat-10.1.55/` por la ruta de tu instalación de Tomcat.
 
 ## Manual de Uso
 
@@ -76,6 +120,18 @@ El administrador (usuario `admin`, password `admin123`) tiene acceso completo a:
 
 ### Manual para Usuario Final (Staff)
 El usuario staff (usuario `staff`, password `staff123`) puede acceder para revisar información operativa, aunque en versiones futuras los roles restringirán capacidades sensibles.
+
+## Gestión del Proyecto
+
+La planificación y el seguimiento de tareas se llevan en un tablero de Trello, complementando los Issues y Milestones de GitHub:
+
+**Tablero:** https://trello.com/invite/b/6a75348f08fd2808dafb8c1e/ATTI23449941e7d677158b54683279b08554064D4057/casa-holhins-web
+
+El seguimiento técnico detallado (con descripción, análisis y solución de cada requisito) vive en los Issues del repositorio, agrupados en los milestones **Beta** y **GA**:
+
+- [Issues](https://github.com/matsukiender-star/casa-holhins-web/issues?q=is%3Aissue)
+- [Milestones](https://github.com/matsukiender-star/casa-holhins-web/milestones)
+- [Pull Requests](https://github.com/matsukiender-star/casa-holhins-web/pulls?q=is%3Apr)
 
 ## Roadmap
 
