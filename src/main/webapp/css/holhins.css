@@ -1,0 +1,55 @@
+:root {
+    --holhins-dark-sage: #4A6363;
+    --holhins-eucalyptus: #7D9A9A;
+    --holhins-light-sage: #B5C5BE;
+    --holhins-natural-cream: #F5F1E8;
+}
+
+body {
+    background-color: var(--holhins-natural-cream);
+    font-family: 'Calibri', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+    font-family: 'Cambria', serif;
+    color: var(--holhins-dark-sage);
+}
+
+.bg-secondary, .navbar {
+    background-color: var(--holhins-dark-sage) !important;
+}
+
+.navbar-brand, .nav-link, .navbar-text {
+    color: var(--holhins-natural-cream) !important;
+}
+
+.btn-primary {
+    background-color: var(--holhins-dark-sage);
+    border-color: var(--holhins-dark-sage);
+    color: var(--holhins-natural-cream);
+}
+
+.btn-primary:hover {
+    background-color: var(--holhins-eucalyptus);
+    border-color: var(--holhins-eucalyptus);
+}
+
+.badge.bg-secondary {
+    background-color: var(--holhins-eucalyptus) !important;
+}
+
+.card {
+    border-color: var(--holhins-light-sage);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.card-header {
+    background-color: var(--holhins-light-sage);
+    color: var(--holhins-dark-sage);
+    font-weight: bold;
+}
+
+.table th {
+    background-color: var(--holhins-light-sage);
+    color: var(--holhins-dark-sage);
+}

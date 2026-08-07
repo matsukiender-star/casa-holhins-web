@@ -1,0 +1,15 @@
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+.idea/
+.settings/
+.classpath
+.project
+*.sublime-workspace
+*.sublime-project
+.vscode/
+data/
+*.db
