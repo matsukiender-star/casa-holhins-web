@@ -80,6 +80,7 @@ public class ClienteDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "Error al insertar cliente", e);
+            throw new DatosException("No se pudo guardar el cliente.", e);
         }
     }
 
@@ -114,6 +115,7 @@ public class ClienteDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "Error al actualizar el cliente " + c.getId(), e);
+            throw new DatosException("No se pudieron guardar los cambios del cliente.", e);
         }
     }
 
@@ -133,6 +135,7 @@ public class ClienteDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "Error al dar de baja el cliente " + id, e);
+            throw new DatosException("No se pudo dar de baja al cliente.", e);
         }
     }
 
