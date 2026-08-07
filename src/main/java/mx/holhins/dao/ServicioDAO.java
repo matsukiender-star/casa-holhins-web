@@ -77,6 +77,7 @@ public class ServicioDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "Error al insertar servicio", e);
+            throw new DatosException("No se pudo guardar el servicio.", e);
         }
     }
     
@@ -108,6 +109,7 @@ public class ServicioDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "Error al actualizar servicio", e);
+            throw new DatosException("No se pudieron guardar los cambios del servicio.", e);
         }
     }
     
@@ -120,6 +122,7 @@ public class ServicioDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             LOG.log(Level.SEVERE, "Error al desactivar servicio", e);
+            throw new DatosException("No se pudo desactivar el servicio.", e);
         }
     }
 

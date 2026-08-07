@@ -1,5 +1,6 @@
 package mx.holhins.servlet;
 
+import mx.holhins.dao.DatosException;
 import mx.holhins.dao.ServicioDAO;
 import mx.holhins.modelo.Servicio;
 import mx.holhins.util.CsrfUtil;
@@ -66,7 +67,12 @@ public class ServicioServlet extends HttpServlet {
         Integer id = aEntero(req.getParameter("id"));
 
         if (id != null && desactivarParam != null) {
-            servicioDAO.desactivar(id);
+            try {
+                servicioDAO.desactivar(id);
+            } catch (DatosException e) {
+                mostrarError(req, resp, e.getMessage());
+                return;
+            }
             resp.sendRedirect(req.getContextPath() + "/servicios");
             return;
         }
@@ -102,13 +108,30 @@ public class ServicioServlet extends HttpServlet {
         // ver si el parametro llego o no.
         s.setActivo(req.getParameter("activo") != null);
 
-        if (id != null) {
-            servicioDAO.actualizar(s);
-        } else {
-            servicioDAO.insertar(s);
+        try {
+            if (id != null) {
+                servicioDAO.actualizar(s);
+            } else {
+                servicioDAO.insertar(s);
+            }
+        } catch (DatosException e) {
+            // Regresamos el formulario con los datos ya capturados en vez de
+            // mandarlo al listado como si se hubiera guardado.
+            req.setAttribute("error", e.getMessage());
+            req.setAttribute("servicio", s);
+            req.getRequestDispatcher("/WEB-INF/views/servicios/form.jsp").forward(req, resp);
+            return;
         }
 
         resp.sendRedirect(req.getContextPath() + "/servicios");
+    }
+
+    /** Repinta el catalogo con un aviso arriba cuando una escritura falla. */
+    private void mostrarError(HttpServletRequest req, HttpServletResponse resp, String mensaje)
+            throws ServletException, IOException {
+        req.setAttribute("error", mensaje);
+        req.setAttribute("servicios", servicioDAO.listarPorTipo(null));
+        req.getRequestDispatcher("/WEB-INF/views/servicios/lista.jsp").forward(req, resp);
     }
 
     /** Igual que en ClienteServlet: null en vez de excepcion si el texto no es un entero. */

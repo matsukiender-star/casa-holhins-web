@@ -11,7 +11,7 @@
 
 <div class="row mb-4">
     <div class="col-12 text-center">
-        <h1 class="display-5">Bienvenid@, ${sessionScope.usuario.nombreCompleto}</h1>
+        <h1 class="display-5">Bienvenid@, ${sessionScope.usuario.nombreCorto}</h1>
         <p class="lead text-muted">Panel de control principal · Casa Holhins CRM</p>
     </div>
 </div>

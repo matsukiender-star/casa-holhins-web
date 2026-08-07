@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="mx.holhins.util.CsrfUtil" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%--
     Cabecera comun a todas las pantallas: el <head>, la barra de navegacion y la
     apertura del container. Cada vista la incluye al inicio y cierra con
@@ -61,7 +62,7 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <span class="navbar-text me-3">
-                        <i class="fas fa-user-circle"></i> ${sessionScope.usuario.nombreCompleto} (${sessionScope.usuario.rol})
+                        <i class="fas fa-user-circle"></i> ${sessionScope.usuario.nombreCorto} (${sessionScope.usuario.rol})
                     </span>
                 </li>
                 <li class="nav-item">
@@ -73,3 +74,14 @@
     </div>
 </nav>
 <div class="container">
+
+    <%-- Aviso de error. Va en el header para que cualquier vista pueda usarlo
+         con solo poner el atributo "error" en el request. Antes un fallo al
+         guardar terminaba en un redirect callado y el usuario no se enteraba. --%>
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-triangle-exclamation"></i> ${error}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+    </c:if>
+

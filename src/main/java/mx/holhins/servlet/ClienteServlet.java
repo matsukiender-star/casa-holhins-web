@@ -1,6 +1,7 @@
 package mx.holhins.servlet;
 
 import mx.holhins.dao.ClienteDAO;
+import mx.holhins.dao.DatosException;
 import mx.holhins.modelo.Cliente;
 import mx.holhins.util.CsrfUtil;
 
@@ -95,7 +96,12 @@ public class ClienteServlet extends HttpServlet {
         // Baja logica: no borramos el registro, solo lo marcamos INACTIVO para
         // conservar el historial del cliente.
         if (id != null && bajaParam != null) {
-            clienteDAO.bajaLogica(id);
+            try {
+                clienteDAO.bajaLogica(id);
+            } catch (DatosException e) {
+                mostrarError(req, resp, e.getMessage());
+                return;
+            }
             resp.sendRedirect(req.getContextPath() + "/clientes");
             return;
         }
@@ -135,15 +141,38 @@ public class ClienteServlet extends HttpServlet {
             c.setEstatus(estatus);
         }
 
-        if (id != null) {
-            clienteDAO.actualizar(c);
-        } else {
-            clienteDAO.insertar(c);
+        try {
+            if (id != null) {
+                clienteDAO.actualizar(c);
+            } else {
+                clienteDAO.insertar(c);
+            }
+        } catch (DatosException e) {
+            // Le devolvemos el formulario con lo que ya habia capturado, para
+            // que no tenga que escribirlo todo otra vez.
+            req.setAttribute("error", e.getMessage());
+            req.setAttribute("cliente", c);
+            req.getRequestDispatcher("/WEB-INF/views/clientes/form.jsp").forward(req, resp);
+            return;
         }
 
         // Redirect y no forward: asi, si el usuario refresca la pagina, no se
         // reenvia el formulario y no se duplica el cliente (patron POST-Redirect-GET).
         resp.sendRedirect(req.getContextPath() + "/clientes");
+    }
+
+    /**
+     * Vuelve a pintar el listado con un aviso de error arriba.
+     *
+     * Lo usamos cuando una escritura falla: antes el servlet redirigia igual que
+     * en un exito y el usuario se quedaba sin saber que su accion no se aplico.
+     */
+    private void mostrarError(HttpServletRequest req, HttpServletResponse resp, String mensaje)
+            throws ServletException, IOException {
+        req.setAttribute("error", mensaje);
+        req.setAttribute("clientes", clienteDAO.listarPaginado(0, POR_PAGINA));
+        req.setAttribute("paginaActual", 1);
+        req.getRequestDispatcher("/WEB-INF/views/clientes/lista.jsp").forward(req, resp);
     }
 
     /**
