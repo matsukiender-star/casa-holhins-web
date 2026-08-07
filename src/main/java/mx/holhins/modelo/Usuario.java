@@ -41,6 +41,30 @@ public class Usuario {
     
     public String getNombreCompleto() { return nombreCompleto; }
     public void setNombreCompleto(String nombreCompleto) { this.nombreCompleto = nombreCompleto; }
+
+    /**
+     * Nombre de pila mas apellido, para saludar en pantalla.
+     *
+     * Lo pidio la Directora: recibirla con los cuatro nombres ("Ana María Trejo
+     * Holhins") se siente acartonado, prefiere el trato corto de la casa. Con
+     * esto el dashboard dice "Bienvenid@, Ana Holhins".
+     *
+     * Tomamos la primera y la ultima palabra en vez de guardar un campo aparte
+     * en la base, asi funciona igual para cualquier usuario que se de de alta
+     * despues sin tener que capturar nada extra. Si el nombre trae una sola
+     * palabra (el usuario 'staff' se llama nada mas "Secretaria"), se devuelve
+     * tal cual.
+     */
+    public String getNombreCorto() {
+        if (nombreCompleto == null) {
+            return null;
+        }
+        String[] partes = nombreCompleto.trim().split("\\s+");
+        if (partes.length < 2) {
+            return nombreCompleto.trim();
+        }
+        return partes[0] + " " + partes[partes.length - 1];
+    }
     
     public String getRol() { return rol; }
     public void setRol(String rol) { this.rol = rol; }
