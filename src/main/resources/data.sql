@@ -35,3 +35,6 @@ MERGE INTO servicios (id, nombre, descripcion, tipo, duracion_minutos, precio, a
 (10, 'Diplomado Masaje Holístico',   'Diplomado con certificación SEP-CONOCER',                        'DIPLOMADO',3600, 15000.00, true),
 (11, 'Diplomado Cuencos',            'Diplomado de terapia con cuencos',                               'DIPLOMADO',2400,  2500.00, true),
 (12, 'Taller de Access Bars',        'Taller introductorio a la técnica de Access Bars',               'TALLER',   480,  3500.00, true);
+
+-- Ajustar la secuencia de auto-increment porque insertamos IDs manualmente
+ALTER TABLE servicios ALTER COLUMN id RESTART WITH 100;
