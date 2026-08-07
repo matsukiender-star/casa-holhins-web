@@ -5,7 +5,7 @@
 Sistema web CRM integral desarrollado para Casa Holhins, empresa de bienestar holístico en Tizayuca, Hidalgo. 
 Este MVP permite administrar clientes y un catálogo de servicios (terapias, cursos, diplomados) de manera centralizada.
 
-## 🏢 Sobre Casa Holhins
+## Sobre Casa Holhins
 
 Casa Holhins es una empresa de bienestar holístico ubicada en Tizayuca, Hidalgo, dirigida por Ana María Trejo Holhins. Ofrece servicios de terapia energética, masaje, sonoterapia y formación certificada en técnicas holísticas.
 
@@ -77,11 +77,11 @@ El administrador (usuario `admin`, password `admin123`) tiene acceso completo a:
 ### Manual para Usuario Final (Staff)
 El usuario staff (usuario `staff`, password `staff123`) puede acceder para revisar información operativa, aunque en versiones futuras los roles restringirán capacidades sensibles.
 
-## 🗺️ Roadmap
+## Roadmap
 
 Este MVP cubre las funcionalidades técnicas base (autenticación, CRM básico y catálogo de servicios). Sin embargo, durante el desarrollo del proyecto se realizó una **entrevista con la Directora General y la secretaria** de Casa Holhins que reveló las necesidades operativas reales de la empresa. Las siguientes iteraciones del sistema atenderán esas necesidades específicas:
 
-### 📅 Iteración 2: Módulo de Agenda de Citas (Prioridad: Alta)
+### Iteración 2: Módulo de Agenda de Citas (Prioridad: Alta)
 
 **Problema real identificado:** actualmente la gestión de citas ocurre en Google Calendar con etiquetas de colores por tipo de servicio, y la secretaria recibe capturas de pantalla del calendario vía WhatsApp para coordinar. Esto genera duplicidad de trabajo y riesgo de citas perdidas.
 
@@ -92,7 +92,7 @@ Este MVP cubre las funcionalidades técnicas base (autenticación, CRM básico y
 - Vista compartida entre Directora y secretaria en tiempo real
 - Notificación automática a la secretaria por WhatsApp cuando se agenda una cita nueva
 
-### 💰 Iteración 3: Módulo de Flujo de Caja (Prioridad: Alta)
+### Iteración 3: Módulo de Flujo de Caja (Prioridad: Alta)
 
 **Problema real identificado:** los pagos se registran manualmente en apps de notas: quién pagó, qué servicio recibió, forma de pago (efectivo/tarjeta), y quién colaboró. No existe caja chica formal ni respaldo de dinero para emergencias.
 
@@ -103,7 +103,7 @@ Este MVP cubre las funcionalidades técnicas base (autenticación, CRM básico y
 - Alerta de saldo bajo en caja chica
 - Reporte de comisiones por colaborador
 
-### 👥 Iteración 4: Directorio de Colaboradores (Prioridad: Media)
+### Iteración 4: Directorio de Colaboradores (Prioridad: Media)
 
 **Problema real identificado:** los talleristas y terapeutas externos que colaboran con Casa Holhins se registran mezclados con los clientes en las notas de pagos, dificultando el seguimiento de comisiones y sesiones asignadas.
 
@@ -114,7 +114,7 @@ Este MVP cubre las funcionalidades técnicas base (autenticación, CRM básico y
 - Reporte de pagos pendientes a cada colaborador
 - Historial de colaboraciones para acuerdos futuros
 
-### 📱 Iteración 5: Integración con WhatsApp Business (Prioridad: Media)
+### Iteración 5: Integración con WhatsApp Business (Prioridad: Media)
 
 **Problema real identificado:** toda la comunicación con clientes y coordinación interna ocurre por WhatsApp, pero de forma manual.
 
@@ -125,7 +125,7 @@ Este MVP cubre las funcionalidades técnicas base (autenticación, CRM básico y
 - Encuesta post-servicio automatizada
 - Registro histórico de conversaciones vinculadas al cliente
 
-### 📊 Iteración 6: Reportes Ejecutivos (Prioridad: Baja)
+### Iteración 6: Reportes Ejecutivos (Prioridad: Baja)
 
 **Problema real identificado:** no hay dashboard que muestre KPIs de la operación en tiempo real, la Directora estima el desempeño del negocio empíricamente.
 
@@ -135,7 +135,7 @@ Este MVP cubre las funcionalidades técnicas base (autenticación, CRM básico y
 - ROI de campañas de marketing (Access Bars, Diplomados)
 - Exportación a PDF y Excel para uso contable
 
-### 🚫 Fuera del alcance de este certificado
+### Fuera del alcance de este certificado
 
 Los siguientes módulos se mencionan en el planteamiento inicial (Fase II) pero se dejan para un proyecto futuro más ambicioso, ya que requieren infraestructura adicional:
 
