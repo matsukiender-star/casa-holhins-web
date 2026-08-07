@@ -1,3 +1,5 @@
+package mx.holhins.util;
+
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class GenerateHash {
