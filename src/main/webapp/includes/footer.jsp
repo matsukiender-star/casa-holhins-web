@@ -1,8 +1,11 @@
 <%@ page pageEncoding="UTF-8" %>
+<%-- Cierre comun: pie de pagina, cierre del container de header.jsp y el JS de Bootstrap. --%>
 </div> <!-- Cierra el container de header.jsp -->
-<footer class="mt-5 py-3 text-center text-muted" style="border-top: 1px solid var(--holhins-light-sage);">
+<footer class="holhins-footer mt-5 py-3 text-center">
     <div class="container">
-        <p class="mb-0">&copy; 2026 Casa Holhins. Sistema Web CRM. Hecho con &#10084;&#65039; y mucho caf&eacute; (y algo de Python, digo Java).</p>
+        <p class="mb-0">
+            &copy; 2026 Casa Holhins &middot; Bienestar integral y armon&iacute;a espiritual &middot; Tizayuca, Hidalgo, M&eacute;xico
+        </p>
     </div>
 </footer>
 <!-- Bootstrap 5 JS Bundle -->

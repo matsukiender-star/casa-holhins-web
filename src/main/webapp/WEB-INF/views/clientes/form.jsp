@@ -2,11 +2,15 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <jsp:include page="/includes/header.jsp" />
 
+<%-- Mismo formulario para alta y edicion: si llega el objeto en el request,
+     los campos vienen precargados y se manda el id oculto. --%>
 <h2>${empty cliente ? 'Nuevo Cliente' : 'Editar Cliente'}</h2>
 
 <div class="card shadow-sm mt-3">
     <div class="card-body">
         <form action="${pageContext.request.contextPath}/clientes" method="post">
+            <%-- Token CSRF: el servlet rechaza cualquier POST que no lo traiga. --%>
+            <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
             <c:if test="${not empty cliente}">
                 <input type="hidden" name="id" value="${cliente.id}">
             </c:if>

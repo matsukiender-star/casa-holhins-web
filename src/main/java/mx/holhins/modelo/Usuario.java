@@ -2,6 +2,13 @@ package mx.holhins.modelo;
 
 import java.sql.Timestamp;
 
+/**
+ * Usuario que entra al sistema: la Directora (ADMIN) o la secretaria (STAFF).
+ *
+ * POJO sin logica. Notese que el campo se llama passwordHash y no password:
+ * por aqui nunca viaja una contrasena en claro, solo el hash de bcrypt que
+ * genera PasswordUtil.
+ */
 public class Usuario {
     private Integer id;
     private String username;
